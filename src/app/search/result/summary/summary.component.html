@@ -1,0 +1,36 @@
+<div class="mt-1">
+  <div class="row m-0">
+    <div class="col-6 mt-4">
+      <div class="row">
+        <div class="col text-center card border-0">
+          <ul class="list-unstyled small">
+            <li><span class="fw-bold">High Price:</span> {{ stock_quote.h.toFixed(2) }}</li>
+            <li><span class="fw-bold">Low Price:</span> {{ stock_quote.l.toFixed(2) }}</li>
+            <li><span class="fw-bold" >Open Price:</span> {{ stock_quote.o.toFixed(2) }}</li>
+            <li><span class="fw-bold">Prev. Close:</span> {{ stock_quote.pc.toFixed(2) }}</li>
+          </ul>
+        </div>
+        <div class="col p-0 m-0">
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col text-center card border-0">
+          <div class="card-header border-0 bg-body fs-6"><u>About the Company</u></div>
+          <div class="card-body m-0">
+            <ul class="list-unstyled small">
+              <li class="mt-1"><span class="fw-bold">IPO Start Date: </span> {{ stock_details.ipo }}</li>
+              <li class="mt-1"><span class="fw-bold">Industry: </span> {{ stock_details.finnhubIndustry }}</li>
+              <li class="mt-1"><span class="fw-bold" >Webpage: </span> <a [href]="stock_details.weburl">{{ stock_details.weburl }}</a></li>
+              <li class="mt-1"><span class="fw-bold">Company peers:</span></li>
+              <li class="mt-1"><span *ngFor="let peer of peers"><a [routerLink]="['/', 'search', peer]">{{ peer }}, </a></span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 m-0 p-2" style="background-color: #f8f8f8">
+<!--      <div class="hourlychart" *ngIf="chartOptions"></div>-->
+      <highcharts-chart *ngIf="chartOptions" style="height: 100%; width: 100%; display: block;" [Highcharts]="high_charts" [options]="chartOptions" constructorType='stockChart' ></highcharts-chart>
+    </div>
+  </div>
+</div>

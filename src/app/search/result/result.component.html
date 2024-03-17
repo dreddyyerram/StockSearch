@@ -1,28 +1,51 @@
+<div *ngIf="stock_details">
+  <div class="row d-flex justify-content-center">
+    <div class="col-3">
+      <div class="card border-0">
+        <div class="card-body d-flex flex-column">
+          <div class="d-flex flex-row align-items-start justify-content-center"><span class="h1 m-0 p-0">{{this.stock_details.ticker}}</span><i class="bi bi-star fs-4 mt-2 ms-2"></i></div>
+          <div class="d-flex flex-row align-items-start justify-content-center"><span class="h4 mt-0 pt-0 text-secondary">{{this.stock_details.name}}</span></div>
+          <div class="d-flex flex-row align-items-start justify-content-center "><span class="mt-0 pt-0 fw-light" style="font-size: small;">{{this.stock_details.exchange}}</span></div>
+          <div class="d-flex flex-row align-items-start justify-content-center "><button class="btn btn-success mt-1 pt-1 pb-1" style="font-size: small;">Buy</button> <button class="btn btn-danger mt-1 ms-2 pt-1 pb-1" style="font-size: small;">Sell</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="card border-0">
+        <div class="card-body d-flex flex-column">
+          <div class="d-flex flex-row align-items-start justify-content-center">
+            <img class="mx-auto col-md-4" [src]="this.stock_details.logo" alt="logo">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="card border-0">
+        <div class="card-body" [ngClass]="{'text-danger' : this.stock_quote.d < 0, 'text-success': this.stock_quote.d >= 0}">
+          <div class="d-flex flex-row align-items-start justify-content-center"><span class="h2 m-0 p-0">{{this.stock_quote.c.toFixed(2)}}</span></div>
+          <div class="d-flex flex-row align-items-start justify-content-center"><span class="h4 mt-0 pt-0"><i class="bi fs-5" [ngClass]="{'bi-caret-down-fill' : this.stock_quote.d < 0, 'bi-caret-up-fill': this.stock_quote.d >= 0}"></i> {{this.stock_quote.d.toFixed(2)}} ({{this.stock_quote.dp.toFixed(2)}}%)</span></div>
+          <div class="d-flex flex-row align-items-start justify-content-center"><span class="mt-0 pt-0 text-black fw-light" style="font-size: small;">{{this.stock_quote.t*1000 | date:"yyyy-MM-dd HH:mm:ss"}}</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col text-center"><div *ngIf="marketOpen; then openBlock else closeBlock"></div>
+      <ng-template #openBlock><span class="text-success fw-bolder" style="font-size: small;">Market is Open</span></ng-template>
+      <ng-template #closeBlock><span class="text-danger fw-bolder" style="font-size: small;">Market Closed on {{this.stock_quote.t*1000 | date:"yyyy-MM-dd HH:mm:ss"}}</span></ng-template>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <mat-tab-group>
+      <mat-tab label="Summary">
+        <app-summary [stock_details]="stock_details" [stock_quote]="stock_quote" [marketOpen]="marketOpen" [trend]="trend" [peers]="peers" [chart]="charts">
+        </app-summary>
+      </mat-tab>
+      <mat-tab label="Top News"><app-news></app-news></mat-tab>
+      <mat-tab label="Charts"><app-charts></app-charts></mat-tab>
+      <mat-tab label="Insights"><app-insights></app-insights></mat-tab>
+    </mat-tab-group>
 
-<div class="row">
-  <div class="col">
-    <div class="card border-0">
-      <div class="card-body d-flex flex-column">
-        <div class="d-flex flex-row align-items-start justify-content-center"><span class="h2 m-0 p-0">AAPL</span><i class="bi bi-star fs-5 ms-2"></i></div>
-        <div class="d-flex flex-row align-items-start justify-content-center"><span class="h4 mt-0 pt-0 text-secondary">Apple Inc</span></div>
-        <div class="d-flex flex-row align-items-start justify-content-center "><span class="mt-0 pt-0" style="font-size: x-small;">NASDAQ NMS - GLOBAL MARKET</span></div>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card border-0">
-      <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card border-0">
-      <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-      </div>
-    </div>
   </div>
 </div>
+

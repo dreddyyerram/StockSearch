@@ -1,15 +1,15 @@
 <div class="container-fluid">
   <div class="row mt-4 mb-2">
     <div class="col text-center">
-      <p class="fw-light fs-3">STOCK SEARCH</p>
+      <p class="fw-lighter h2">STOCK SEARCH</p>
     </div>
   </div>
   <div class="row align-items-center justify-content-center">
     <form class="col-3 border-search rounded-5">
       <div class="input-group">
-        <input type="text" class="form-control border-0 pt-0 pb-0" placeholder="Enter stock ticker symbol" aria-label="Enter stock ticker symbol" aria-describedby="basic-addon2">
+        <input type="text" class="form-control border-0 pt-0 pb-0" [(ngModel)]="this.tickerInput" name="symbol" placeholder="Enter stock ticker symbol" >
         <div class="input-group-append">
-          <button type="button" class="btn border-0 pe-1 pt-0 pb-0" >
+          <button type="button" class="btn border-0 pe-1 pt-0 pb-0" [routerLink]="['/', 'search', tickerInput]">
             <i class="bi bi-search icon"></i>
           </button>
           <button type="button" class="btn border-0 pe-1 pt-0 pb-0" >
@@ -20,8 +20,8 @@
     </form>
   </div>
   <div class="row mt-3 mb-4 d-flex align-items-center justify-content-center">
-    <div class="col-md-8">
-      <app-result></app-result>
+    <div class="col-md-9">
+      <app-result *ngIf="this.ticker" [ticker]="ticker"></app-result>
     </div>
   </div>
 
