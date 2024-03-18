@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges} from '@angular/core';
-import {ChartResponse, Recommendation, StockDetails, StockQuote} from '../../objects'
+import {ChartResponse, Recommendation, StockDetails, StockQuote, Peers, NewsResponse} from '../../objects'
 import { NodeApiService } from '../../node-api.service';
 import { OnInit } from '@angular/core';
 
@@ -16,6 +16,7 @@ export class ResultComponent implements OnInit, OnChanges{
   trend : Recommendation | any;
   peers: Array<string> | any;
   charts: ChartResponse | any;
+  news: NewsResponse | any;
 
 
   constructor(private backend: NodeApiService) {
@@ -43,11 +44,17 @@ export class ResultComponent implements OnInit, OnChanges{
       this.trend = data;
     });
 
-    this.backend.getPeers(this.ticker).then((data: Array<string>) => {
+    this.backend.getPeers(this.ticker).then((data: Peers) => {
       this.peers = data;
     });
 
+    this.backend.getNews(this.ticker).then((data: NewsResponse) => {
+      this.news = data;
+    });
+
   }
+
+
 
   ngOnChanges() {
     console.log(this.ticker);

@@ -1,1 +1,69 @@
-<p>news works!</p>
+<div class="row d-flex align-items-stretch">
+  <div *ngFor="let new of news" style="height: 7rem" class="col-md-6 col-sm-12 pt-4">
+    <ng-template #modal let-c="close" let-d="dismiss">
+    <div class="modal-header pb-2">
+      <div class="row w-100 flex-wrap justify-content-between">
+        <div class="col-10">
+          <p class="modal-title h3 mb-0 fw-normal" id="modal-basic-title">{{ this.newsModal.source}}</p>
+          <p class="text-secondary mt-0 mb-0">{{ this.newsModal.datetime*1000 | date}}</p>
+        </div>
+        <div class="col-1 align-self-center">
+          <button type="button" class="btn border-0" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true" class="text-primary small"><u>&times;</u></span>
+          </button>
+
+        </div>
+      </div>
+    </div>
+    <div class="modal-body mb-4">
+      <p class="h6 m-0 p-0">{{this.newsModal.headline}}</p>
+      <p class="small m-0 p-0">{{this.newsModal.summary}}</p>
+      <p class="text-secondary small m-0 p-0">For more details click <a [href]="this.newsModal.url">here</a></p>
+    </div>
+    <div class="modal-footer m-3 border-start border-end border-bottom">
+      <div class="container border-dark border-2">
+        Share<br>
+        <div class="btn-group pt-2" role="group" aria-label="Basic example">
+          <a class="twitter-share-button" href="{{'https://twitter.com/intent/tweet?text='+this.newsModal.headline +' '+ this.newsModal.url}}" data-size="large">
+            <button type="button" class="btn p-0" ><fa-icon class="h2" [icon]="twitter"></fa-icon></button></a>
+          <a class="fb-share-button" data-href="{{this.newsModal.image}}" data-layout="" data-size="">
+            <a target="_blank" href="{{'https://www.facebook.com/sharer/sharer.php?u='+this.newsModal.image}}" class="fb-xfbml-parse-ignore">
+              <button type="button" class="btn p-0">
+                <fa-icon class="h2" [icon]="facebook" style="color: #0200ff"></fa-icon>
+              </button>
+            </a>
+          </a>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+    <div class="card w-100 h-100 p-0 clickable" (click)="open(modal, new)">
+      <div class="row h-100 m-0">
+        <div class="col-md-3 h-100 p-1">
+          <img class="w-100 h-100 p-2" style="border-radius: 0.8rem" [src]="new.image" alt="Card image">
+        </div>
+        <div class="col d-flex h-100 flex-wrap align-content-center justify-content-around p-3">
+          <p class="text-center" style="font-size: x-small">{{ new.headline }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!--      <div class="row h-100">-->
+<!--        <div class="col-12 col-sm-4">-->
+<!--          <img class="card-img rounded-2 w-100 h-100" [src]="new.image">-->
+<!--        </div>-->
+<!--        <div class="col-12 col-sm-8 ">-->
+<!--          <div class="card-body">-->
+<!--            <h6 class="card-title">{{ new.headline }}</h6>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      <div class="card-body m-0 p-0 d-flex flex-row justify-content-start">-->
+<!--        <div class="col-4 p-2 "><img [src]="new.image" class="w-100 h-100 rounded-1" alt="Card image"></div>-->
+<!--        <div class="col p-2 d-flex align-items-center justify-content-center small">{{ new.headline }}</div>-->
+<!--      </div>-->
+
+

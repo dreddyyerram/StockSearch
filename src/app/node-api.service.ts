@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import {samples} from './objects';
 
 @Injectable({
   providedIn: 'root'
@@ -8,45 +9,49 @@ export class NodeApiService {
 
   constructor() { }
 
-  public genericNodeApi(ticker: string, endpoint: string){
-    return fetch(`${this.domain}/${endpoint}?symbol=${ticker}`, {mode: 'cors'})
-    .then(response => response.json());
+  public genericNodeApi(ticker: string, endpoint: string, id: string){
+    // return fetch(`${this.domain}/${endpoint}?symbol=${ticker}`, {mode: 'cors'})
+    // .then(response => response.json());
+    return new Promise((resolve, reject):any => {
+      // @ts-ignore
+      resolve(samples[id]);
+    });
   }
 
   public getStockDetails(ticker: string){
-    return this.genericNodeApi(ticker, 'stock/profile');
+    return this.genericNodeApi(ticker, 'stock/profile', 'profile');
   }
 
   public getChartData(ticker: string){
-    return this.genericNodeApi(ticker, 'stock/charts');
+    return this.genericNodeApi(ticker, 'stock/charts', 'charts');
   }
 
   public getStockQuote(ticker: string){
-    return this.genericNodeApi(ticker, 'stock/quote');
+    return this.genericNodeApi(ticker, 'stock/quote', 'quote');
   }
 
   public getSearchList(ticker: string){
-    return this.genericNodeApi(ticker, 'stock/search');
+    return this.genericNodeApi(ticker, 'stock/search', 'search');
   }
 
   public getNews(ticker: string){
-    return this.genericNodeApi(ticker, 'stock/news');
+    return this.genericNodeApi(ticker, 'stock/news', 'news');
   }
 
   public getRecommendations(ticker: string){
-    return this.genericNodeApi(ticker, 'stock/recommendation');
+    return this.genericNodeApi(ticker, 'stock/recommendation', 'recommendation');
   }
 
   public getInsiders(ticker: string){
-    return this.genericNodeApi(ticker, 'stock/insider');
+    return this.genericNodeApi(ticker, 'stock/insider', 'insider');
   }
 
   public getPeers(ticker: string){
-    return this.genericNodeApi(ticker, 'stock/peers');
+    return this.genericNodeApi(ticker, 'stock/peers', 'peers');
   }
 
   public getEarnings(ticker: string){
-    return this.genericNodeApi(ticker, 'stock/earnings');
+    return this.genericNodeApi(ticker, 'stock/earnings', 'earnings');
   }
 
   public customNodeApi(endpoint: string, queries: any){
@@ -67,7 +72,8 @@ export class NodeApiService {
       to: toDate.toISOString().split('T')[0],
       span: 'hour'
     };
-    return this.customNodeApi('stock/charts', queries);
+    // return this.customNodeApi('stock/charts', queries);
+    return this.genericNodeApi(ticker, 'stock/charts', 'charts');
 
   }
 

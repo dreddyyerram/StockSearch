@@ -1,6 +1,6 @@
 import {Component, Input, OnChanges} from '@angular/core';
 import { OnInit } from '@angular/core';
-import {Recommendation, StockDetails, StockQuote, ChartResponse} from '../../../objects'
+import {Recommendation, StockDetails, StockQuote, ChartResponse, Peers} from '../../../objects'
 import * as highcharts1 from 'highcharts/highstock';
 
 @Component({
@@ -9,17 +9,16 @@ import * as highcharts1 from 'highcharts/highstock';
   styleUrls: ['./summary.component.css']
 })
 export class SummaryComponent implements OnInit, OnChanges{
-  @Input() stock_details !: any;
-  @Input() stock_quote !: any;
+  @Input() stock_details !: StockDetails;
+  @Input() stock_quote !: StockQuote;
   @Input() marketOpen !: boolean;
   @Input() trend !: Recommendation;
-  @Input() peers !: Array<string>;
+  @Input() peers !: Peers;
   @Input() chart !: ChartResponse;
   chartOptions: any;
   high_charts = highcharts1;
 
   CalculateTickPositions(data: number[][]): Array<number>{
-    console.log(this.chart)
     let tickPositions = [];
     let min = this.chart.results[0].t;
     let max = this.chart.results[this.chart.results.length - 1].t;
@@ -29,7 +28,6 @@ export class SummaryComponent implements OnInit, OnChanges{
     for (let i = 0; i < ticks; i++){
       tickPositions.push(min + i * interval);
     }
-    console.log(tickPositions);
     tickPositions.push(max);
     return tickPositions;
   }
@@ -41,14 +39,11 @@ export class SummaryComponent implements OnInit, OnChanges{
     if (this.chart){
       this.createChart(this.chart);
     }
-    else {
-      this.chartOptions = {};
-    }
   }
 
   createChart(chart: ChartResponse){
     console.log(chart);
-    let data1: number[][] = this.chart.results.map((d) => [d.t, d.c]);
+    let data1: number[][] = this.chart.results.map((d: { t: any; c: any; }) => [d.t, d.c]);
     // this.chartOptions = {
     //   chart: {
     //     type: 'line',
@@ -204,7 +199,6 @@ export class SummaryComponent implements OnInit, OnChanges{
         }
       }]
     };
-    // new highcharts1.StockChart('hourlychart', this.chartOptions);
   }
 
 }

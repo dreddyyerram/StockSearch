@@ -30,7 +30,7 @@
     </div>
     <div class="col-6 m-0 p-2" style="background-color: #f8f8f8">
 <!--      <div class="hourlychart" *ngIf="chartOptions"></div>-->
-      <highcharts-chart *ngIf="chartOptions" style="height: 100%; width: 100%; display: block;" [Highcharts]="high_charts" [options]="chartOptions" constructorType='stockChart' ></highcharts-chart>
+      <highcharts-chart *ngIf="this.chartOptions" style="height: 100%; width: 100%; display: block;" [Highcharts]="high_charts" [options]="chartOptions" constructorType='stockChart' ></highcharts-chart>
     </div>
   </div>
 </div>

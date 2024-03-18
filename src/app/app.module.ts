@@ -16,6 +16,8 @@ import { NewsComponent } from './search/result/news/news.component';
 import { ChartsComponent } from './search/result/charts/charts.component';
 import { InsightsComponent } from './search/result/insights/insights.component';
 import { HighchartsChartModule } from 'highcharts-angular';
+import {MatCardModule} from '@angular/material/card';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -37,9 +39,12 @@ import { HighchartsChartModule } from 'highcharts-angular';
     FormsModule,
     MatTabsModule,
     BrowserAnimationsModule,
-    HighchartsChartModule
+    HighchartsChartModule,
+    MatCardModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
+
 })
 export class AppModule { }
