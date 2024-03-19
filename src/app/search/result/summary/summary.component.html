@@ -1,6 +1,6 @@
 <div class="mt-1">
   <div class="row m-0">
-    <div class="col-6 mt-4">
+    <div class="col-6 m-auto">
       <div class="row">
         <div class="col text-center card border-0">
           <ul class="list-unstyled small">
@@ -30,7 +30,7 @@
     </div>
     <div class="col-6 m-0 p-2" style="background-color: #f8f8f8">
 <!--      <div class="hourlychart" *ngIf="chartOptions"></div>-->
-      <highcharts-chart *ngIf="this.chartOptions" style="height: 100%; width: 100%; display: block;" [Highcharts]="high_charts" [options]="chartOptions" constructorType='stockChart' ></highcharts-chart>
+      <highcharts-chart *ngIf="this.chartOptions" style="width: 100%; display: block;" [Highcharts]="high_charts" [options]="chartOptions" constructorType='stockChart' ></highcharts-chart>
     </div>
   </div>
 </div>

@@ -73,7 +73,7 @@ export class NodeApiService {
       span: 'hour'
     };
     // return this.customNodeApi('stock/charts', queries);
-    return this.genericNodeApi(ticker, 'stock/charts', 'charts');
+    return this.genericNodeApi(ticker, 'stock/charts', 'hourlychart');
 
   }
 

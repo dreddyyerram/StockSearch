@@ -1,11 +1,11 @@
 <div class="container-fluid d-flex min-vh-100 m-0 p-0 flex-column justify-content-start">
-  <div class="container-fluid m-0 p-0 position-sticky top-0" id="header">
+  <div class="container-fluid m-0 p-0 position-sticky top-0 z-3" id="header">
       <app-nav></app-nav>
   </div>
-  <div class="container-fluid m-0 p-0" id="content">
+  <div class="container-fluid m-0 mb-auto" id="content">
     <router-outlet></router-outlet>
   </div>
-  <div class="container-fluid m-0 p-0 mt-auto" id="footer">
+  <div class="container-fluid m-0 p-0" id="footer">
     <app-footer></app-footer>
   </div>
 </div>

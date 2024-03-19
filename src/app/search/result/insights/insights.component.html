@@ -1,1 +1,42 @@
-<p>insights works!</p>
+<div *ngIf="insiderData" class="row h-100">
+  <div class="row mt-2 p-2">
+        <div class="col ">
+          <div class="row w-100 text-center"><span class="h6 fw-medium">Insider Sentiments</span></div>
+          <div class="row w-100 d-flex flex-wrap flex-column align-content-center justify-content-center"><div class="col-6">
+            <table class="table small">
+            <thead>
+            <tr>
+              <th scope="col">{{insiderData.symbol}}</th>
+              <th scope="col">MSPR</th>
+              <th scope="col">Change</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <th scope="row">Total</th>
+              <td>{{insiderData.totalMSPR}}</td>
+              <td>{{insiderData.totalChange}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Positive</th>
+              <td>{{insiderData.posMSPR}}</td>
+              <td>{{insiderData.posChange}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Negative</th>
+              <td>{{insiderData.negMSPR}}</td>
+              <td>{{insiderData.negChange}}</td>
+            </tr>
+            </tbody>
+          </table></div></div>
+        </div>
+  </div>
+  <div class="row p-0">
+    <div class="col-md-6 col-12">
+      <highcharts-chart class="w-100 d-block small" style="height: 30em" *ngIf="this.recomChartOptions"  [Highcharts]="highcharts" [options]="recomChartOptions"></highcharts-chart>
+    </div>
+    <div class="col-md-6 col-12">
+      <highcharts-chart class="w-100 d-block small" style="height: 30em" *ngIf="this.historyChartOptions"  [Highcharts]="highcharts" [options]="historyChartOptions"></highcharts-chart>
+    </div>
+  </div>
+</div>
