@@ -27,6 +27,7 @@ export class ChartsComponent implements OnInit, OnChanges{
   }
 
   createChart(chart: ChartResponse){
+
     const volume = chart.results.map((d: { t: any; v: any; }) => [d.t, d.v]);
     const ohlc = chart.results.map((d: { t: any; o: any; h: any, l: any, c: any}) => [d.t, d.o, d.h, d.l, d.c]);
 

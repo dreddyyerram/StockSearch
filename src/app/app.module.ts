@@ -18,6 +18,13 @@ import { InsightsComponent } from './search/result/insights/insights.component';
 import { HighchartsChartModule } from 'highcharts-angular';
 import {MatCardModule} from '@angular/material/card';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {FormControl, ReactiveFormsModule} from '@angular/forms';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatInputModule} from '@angular/material/input';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { WatchlistComponent } from './watchlist/watchlist.component';
+import { PortfolioComponent } from './portfolio/portfolio.component';
+
 
 @NgModule({
   declarations: [
@@ -29,7 +36,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     SummaryComponent,
     NewsComponent,
     ChartsComponent,
-    InsightsComponent
+    InsightsComponent,
+    WatchlistComponent,
+    PortfolioComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +50,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     BrowserAnimationsModule,
     HighchartsChartModule,
     MatCardModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,36 @@
+<div class="container-fluid">
+  <div  class="row d-flex">
+    <div class="col-9 m-auto mt-4 mb-3">
+      <span class="h2 fw-normal" >My Watchlist</span>
+    </div>
+  </div>
+  <mat-spinner  *ngIf="watchservice.loading" class="m-auto mt-5" diameter="48"></mat-spinner>
+  <div *ngIf="!watchservice.loading" >
+    <div *ngIf="this.watchservice.watchList.length ==0" class="mt-3 col-9 m-auto">
+      <ngb-alert class="text-center" [type]="this.EmptyAlert.type" [dismissible]="false" >{{ this.EmptyAlert.message }}</ngb-alert>
+    </div>
+    <div class="row m-2" *ngFor="let stock of watchservice.watchList" >
+      <div class="col-9 m-auto border border-2 rounded-2 ps-0">
+        <button class="btn p-0 text-secondary" style="font-size: xx-small; width:40px; height: 40px;" (click)="this.watchservice.removeStock(stock.ticker)"><fa-icon [icon]="faXmark"></fa-icon></button>
+        <div class="row m-0 card-csm" (click)="routeToSearch(stock)">
+          <div class="col-6 p-0 ps-3">
+            <div class="row h4 m-0 mb-2 fw-medium">
+              {{stock.ticker}}
+            </div>
+            <div class="row h6 m-0 mb-3">
+              {{stock.name}}
+            </div>
+          </div>
+          <div class="col-6 p-0 ps-2 text-black" [ngClass]="{'text-danger' : this.stock.quote.d < 0, 'text-success': this.stock.quote.d > 0}">
+            <div class="row h4 m-0 mb-2 fw-medium">
+              {{ stock.quote.c }}
+            </div>
+            <div class="row h6 m-0 mb-3">
+              <i class="bi w-auto p-1" [ngClass]="{'bi-caret-down-fill' : this.stock.quote.d < 0, 'bi-caret-up-fill': this.stock.quote.d > 0}" style="font-size: small"></i>{{stock.quote.d}} ({{stock.quote.dp}}%)
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

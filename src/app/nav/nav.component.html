@@ -1,8 +1,31 @@
-<nav class="navbar navbar-dark bg-custom justify-content-between m-0 p-1" >
-  <a class="navbar-brand ps-4 fw-light fs-6" href="#">Stock Search</a>
-  <form class="form-inline ms-auto me-4">
-    <button class="btn fw-light text-light nav-custom mt-1 border-light" style="font-size: small" routerLink="search" id="searchTab">Search</button>
-    <button class="btn fw-light text-light nav-custom mt-1 " style="font-size: small" id="watchlistTab">Watchlist</button>
-    <button class="btn fw-light text-light nav-custom mt-1" style="font-size: small" id="portfolioTab">Portfolio</button>
-  </form>s
+<nav class="navbar navbar-expand-sm navbar-dark bg-custom justify-content-between m-0 p-1" >
+  <div class="navbar-header">
+    <a class="navbar-brand ps-4 fw-light fs-6" routerLink="/">Stock Search</a>
+  </div>
+<!--  <form class="form-inline ms-auto me-4">-->
+<!--    <button class="btn fw-light text-light nav-custom mt-1 border-light" style="font-size: small" [routerLink]="['/', 'search', 'home']" id="searchTab">Search</button>-->
+<!--    <button class="btn fw-light text-light nav-custom mt-1 " style="font-size: small" [routerLink]="['/', 'watchlist']" id="watchlistTab">Watchlist</button>-->
+<!--    <button class="btn fw-light text-light nav-custom mt-1" style="font-size: small" [routerLink]="['/', 'portfolio']" id="portfolioTab">Portfolio</button>-->
+<!--  </form>-->
+  <button class="navbar-toggler ms-auto me-5" type="button" data-bs-toggle="collapse" data-bs-target="#n_bar"
+          aria-controls="navbarNavAltMarkup" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbar">
+    <ul class="nav navbar-nav ms-auto me-5 " style="font-size: small">
+      <li>
+        <a class="nav-link ps-3 pe-3" [routerLink]="['/', 'search']" [routerLinkActiveOptions]="{exact: false}"
+           routerLinkActive="active">Search</a>
+      </li>
+      <li>
+        <a class="nav-link ps-3 pe-3" [routerLink]="['/', 'watchlist']" routerLinkActive="active">Watchlist</a>
+      </li>
+      <li>
+        <a class="nav-link ps-3 pe-3" [routerLink]="['/', 'portfolio']" routerLinkActive="active">Portfolio</a>
+      </li>
+    </ul>
+  </div>
+
 </nav>
+

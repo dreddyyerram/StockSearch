@@ -1,4 +1,4 @@
-import { Component,Input } from '@angular/core';
+import {Component, Input, OnChanges} from '@angular/core';
 import { InsiderResponse, Recommendation} from "src/app/objects";
 import { OnInit } from '@angular/core';
 import * as highcharts1 from 'highcharts/highstock';
@@ -8,7 +8,7 @@ import * as highcharts1 from 'highcharts/highstock';
   templateUrl: './insights.component.html',
   styleUrls: ['./insights.component.css']
 })
-export class InsightsComponent implements OnInit{
+export class InsightsComponent implements OnInit, OnChanges{
   @Input() Insiders !: InsiderResponse;
   @Input() Recommendations !: Recommendation;
   @Input() Earnings !: any;
@@ -22,6 +22,10 @@ export class InsightsComponent implements OnInit{
 
 
   ngOnInit() {
+
+  }
+
+  setupInsiderData(){
     let posMSPRList: number[] = this.Insiders.data.filter((d:any) => d.mspr >= 0);
     let negMSPRList: number[] = this.Insiders.data.filter((d:any) => d.mspr < 0);
     let posChangeList: number[] = this.Insiders.data.filter((d:any) => d.change >= 0);
@@ -36,11 +40,14 @@ export class InsightsComponent implements OnInit{
       posChange: posChangeList.reduce((acc:any, d:any) => acc + d.change, 0).toFixed(2),
       negChange: negChangeList.reduce((acc:any, d:any) => acc + d.change, 0).toFixed(2)
     };
-
   }
 
   ngOnChanges(): void {
+    if(this.Insiders){
+      this.setupInsiderData();
+    }
     if (this.Recommendations){
+      console.log(this.Recommendations);
       this.createRecomChart(this.Recommendations);
     }
     if (this.Earnings){
@@ -56,12 +63,6 @@ export class InsightsComponent implements OnInit{
         backgroundColor: '#f8f8f8',
         style:{
           fontSize: "small"
-        },
-        events:{
-          load: function(this:any){
-            console.log(this.xAxis[0].labelGroup);
-
-          }
         }
       },
       title: {
@@ -119,6 +120,10 @@ export class InsightsComponent implements OnInit{
 
   createHistoryChart(data: any){
     let x_labels = data.map((x: any) => [x.period, `Suprise: ${x.surprise}`]);
+    let minEstimate = Math.min(...data.map((x: any) => x.estimate));
+    let minActual = Math.min(...data.map((x: any) => x.actual));
+    let totalMin = Math.min(minEstimate, minActual);
+
     this.historyChartOptions = {
       title: {
         text: 'Historical EPS Surprises'
@@ -137,7 +142,6 @@ export class InsightsComponent implements OnInit{
             const x1 = this.plotLeft;
             const x2 = this.plotLeft + this.plotWidth;
             const y = labelYPosition + (legendYPosition - labelYPosition);
-            console.log(x1,y,x2);
             // Render the line
             this.renderer.path(['M', x1, y, 'L', x2, y])
               .attr({
@@ -161,7 +165,7 @@ export class InsightsComponent implements OnInit{
         title: {
           text: 'Quarterly EPS'
         },
-        min: 0
+        min: totalMin,
       },
       tooltip: {
         shared: true,

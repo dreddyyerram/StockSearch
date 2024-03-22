@@ -42,7 +42,6 @@ export class SummaryComponent implements OnInit, OnChanges{
   }
 
   createChart(chart: ChartResponse){
-    console.log(chart);
     let data1: number[][] = this.chart.results.map((d: { t: any; c: any; }) => [d.t, d.c]);
     // this.chartOptions = {
     //   chart: {

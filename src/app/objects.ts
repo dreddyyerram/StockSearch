@@ -11,7 +11,7 @@ export type StockDetails = {
     currency: string,
     estimateCurrency: string,
     finnhubIndustry: string
-} | any;
+} | any | {};
 export let sampleStockDetails: StockDetails = {
   "country": "US",
   "currency": "USD",
@@ -51,6 +51,11 @@ export let SampleStockQuote: StockQuote = {
   "t": 1710532802
 }
 
+export type Watchlist = {
+    ticker: string,
+    name: string,
+    quote?: StockQuote
+} | any;
 
 
 export type Recommendation = {
@@ -1894,6 +1899,35 @@ export let sampleEarningsResponse: EarningsResponse = [
 ]
 
 
+export interface Alert {
+  type: string;
+  message: string;
+}
+
+export let NotFoundAlert: Alert = {
+  type: 'danger',
+  message: 'No data found. Please enter a valid Ticker',
+}
+
+export let InvalidTickerAlert: Alert = {
+  type: 'danger',
+  message: 'Please enter a valid Ticker',
+}
+
+export let EmptyWatchListALert: Alert = {
+  type: 'warning',
+  message: 'Currently you dont have any stocks in your watchlist.'
+}
+
+export let ALERTS: any = {
+    NotFound: NotFoundAlert,
+    InvalidTicker: InvalidTickerAlert,
+    EmptyWatchList: EmptyWatchListALert,
+};
+
+
+
+
 export let samples = {
   profile: sampleStockDetails,
   'quote': SampleStockQuote,
@@ -1906,3 +1940,4 @@ export let samples = {
   'earnings': sampleEarningsResponse,
   'charts': sampleChartResponse
 }
+

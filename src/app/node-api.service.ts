@@ -10,12 +10,13 @@ export class NodeApiService {
   constructor() { }
 
   public genericNodeApi(ticker: string, endpoint: string, id: string){
-    // return fetch(`${this.domain}/${endpoint}?symbol=${ticker}`, {mode: 'cors'})
-    // .then(response => response.json());
-    return new Promise((resolve, reject):any => {
-      // @ts-ignore
-      resolve(samples[id]);
-    });
+    return fetch(`${this.domain}/${endpoint}?symbol=${ticker}`, {mode: 'cors'})
+    .then(response => response.json());
+    // console.log("APICALL");
+    // return new Promise((resolve, reject):any => {
+    //   // @ts-ignore
+    //   resolve(samples[id]);
+    // });
   }
 
   public getStockDetails(ticker: string){
@@ -72,8 +73,8 @@ export class NodeApiService {
       to: toDate.toISOString().split('T')[0],
       span: 'hour'
     };
-    // return this.customNodeApi('stock/charts', queries);
-    return this.genericNodeApi(ticker, 'stock/charts', 'hourlychart');
+    return this.customNodeApi('stock/charts', queries);
+    // return this.genericNodeApi(ticker, 'stock/charts', 'hourlychart');
 
   }
 
