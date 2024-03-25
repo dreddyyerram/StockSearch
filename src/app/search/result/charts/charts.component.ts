@@ -117,6 +117,5 @@ export class ChartsComponent implements OnInit, OnChanges{
       }]
     }
   }
-
 }
 

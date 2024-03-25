@@ -12,6 +12,7 @@ export class InsightsComponent implements OnInit, OnChanges{
   @Input() Insiders !: InsiderResponse;
   @Input() Recommendations !: Recommendation;
   @Input() Earnings !: any;
+  @Input() stock_details !: any;
   insiderData: any = {};
   historyChartOptions: any;
   recomChartOptions: any;

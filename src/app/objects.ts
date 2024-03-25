@@ -51,12 +51,28 @@ export let SampleStockQuote: StockQuote = {
   "t": 1710532802
 }
 
-export type Watchlist = {
-    ticker: string,
-    name: string,
-    quote?: StockQuote
+
+export type stock = {
+  ticker: string,
+  name: string,
+  current_price: number,
+  avg_price?: number,
+  change?: number,
+  mrkt_value?: number,
+  total_price: number,
+  quantity: number
+}
+
+export type Portfolio = {
+  balance: number,
+  stocks: Array<stock>
 } | any;
 
+export type Watchlist = {
+  ticker: string,
+  name: string,
+  quote?: StockQuote
+} | any;
 
 export type Recommendation = {
     buy: number,
@@ -1900,6 +1916,13 @@ export let sampleEarningsResponse: EarningsResponse = [
 
 
 export interface Alert {
+  id?: number;
+  type: string;
+  message: string;
+}
+
+export type CAlert={
+  id: number;
   type: string;
   message: string;
 }
@@ -1919,13 +1942,26 @@ export let EmptyWatchListALert: Alert = {
   message: 'Currently you dont have any stocks in your watchlist.'
 }
 
+export let EmptyPortFolio: Alert = {
+  type: 'warning',
+  message: 'Currently you dont have any stock.'
+}
+
 export let ALERTS: any = {
     NotFound: NotFoundAlert,
     InvalidTicker: InvalidTickerAlert,
     EmptyWatchList: EmptyWatchListALert,
 };
 
-
+export type PurchaseStock = {
+  type: "Buy" | "Sell",
+  ticker: string,
+  name: string,
+  quantity: number,
+  price: number,
+  max_sell: number,
+  max_buy_price: number,
+}
 
 
 export let samples = {

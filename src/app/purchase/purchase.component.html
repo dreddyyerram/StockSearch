@@ -1,0 +1,28 @@
+<div class="modal-header pb-2">
+  <div class="row w-100 flex-wrap justify-content-between">
+    <div class="col-10">
+      {{ this.transaction.ticker }}
+    </div>
+    <div class="col-1 align-self-center">
+      <button type="button" class="btn border-0" aria-label="Close" (click)="this.close()">
+        <span aria-hidden="true" class="text-primary small"><u>&times;</u></span>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="modal-body d-flex flex-column" style="font-size: small">
+  <span>Current Price: {{this.transaction.price.toFixed(2)}}</span>
+  <span> Money in Wallet: ${{this.service.myPortfolio.balance.toFixed(2)}}</span>
+  <div class="row mt-1">
+    <label for="quantity" class="col-sm-2 col-form-label">Quantity: </label>
+    <div class="col-sm-10">
+      <input type="number" style="font-size: small" class="form-control" id="quantity" placeholder="0" [(ngModel)]="quantity">
+    </div>
+  </div>
+  <div class="row mt-2"><span *ngIf="transaction.type==='Buy' && quantity * transaction.price > transaction.max_buy_price" class="text-danger">Not Enough in the Wallet!</span>
+    <span *ngIf="transaction.type==='Sell' && this.quantity > transaction.max_sell" class="text-danger">You cannot sell the stocks that you don't have!</span></div>
+</div>
+<div class="modal-footer" style="font-size: small">
+  <div class="me-auto">Total: {{ (this.quantity*this.transaction.price).toFixed(2) }}</div>
+  <div class="ms-auto"><button [disabled]="(transaction.type==='Buy' && quantity * transaction.price > transaction.max_buy_price) || (transaction.type==='Sell' && this.quantity > transaction.max_sell) || (this.quantity===0 || !this.quantity)" type="submit" class="btn btn-success ms-auto" style="font-size: small" (click)="this.transact()">{{ this.transaction.type }}</button></div>
+</div>

@@ -21,7 +21,7 @@
               {{stock.name}}
             </div>
           </div>
-          <div class="col-6 p-0 ps-2 text-black" [ngClass]="{'text-danger' : this.stock.quote.d < 0, 'text-success': this.stock.quote.d > 0}">
+          <div class="col-6 p-0 ps-2 " [ngClass]="{'text-danger' : this.stock.quote.d < 0, 'text-success': this.stock.quote.d > 0, 'text-black': this.stock.quote.d ==0}">
             <div class="row h4 m-0 mb-2 fw-medium">
               {{ stock.quote.c }}
             </div>

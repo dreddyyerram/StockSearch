@@ -24,6 +24,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { WatchlistComponent } from './watchlist/watchlist.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
+import { PurchaseComponent } from './purchase/purchase.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { PortfolioComponent } from './portfolio/portfolio.component';
     ChartsComponent,
     InsightsComponent,
     WatchlistComponent,
-    PortfolioComponent
+    PortfolioComponent,
+    PurchaseComponent
   ],
   imports: [
     BrowserModule,

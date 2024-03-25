@@ -7,7 +7,7 @@ import {faFacebookSquare, faXTwitter} from "@fortawesome/free-brands-svg-icons";
   selector: 'app-news',
   templateUrl: './news.component.html',
   styleUrls: ['./news.component.css'],
-  providers: [NgbModalConfig, NgbModal],
+  providers: [],
 })
 export class NewsComponent {
   @Input() news: NewsResponse | any;

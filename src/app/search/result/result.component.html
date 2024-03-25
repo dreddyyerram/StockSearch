@@ -1,5 +1,37 @@
 <div>
+  <ng-template #buy let-c="close" let-d="dismiss">
+    <div class="modal-header pb-2">
+      <div class="row w-100 flex-wrap justify-content-between">
+        <div class="col-10">
+          AAPL
+        </div>
+        <div class="col-1 align-self-center">
+          <button type="button" class="btn border-0" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true" class="text-primary small"><u>&times;</u></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-body mb-4">
+      <span> Current Price: 184.23</span>
+      <span> Money in Wallet: $250000</span>
+      <span> Shares Owned: <input type="number" class="form-control" id="quantity" placeholder="0"></span>
+      <span class="invalid-feedback">Hi</span>
+      <span class="valid-feedback">Hi</span>
+    </div>
+    <div class="modal-footer m-3">
+      <div class="row">
+        <span>Total: 184230000 </span>
+        <button type="button" class="btn btn-success ms-auto" (click)="c('Close click')">Buy</button>
+      </div>
+    </div>
+  </ng-template>
   <mat-spinner  *ngIf="Loading" class="m-auto mt-5" diameter="48"></mat-spinner>
+  <div *ngFor="let alert of alerts">
+    <ngb-alert class="text-center" [type]="alert.type" (closed)="closeAlert(alert.id)">
+      {{ alert.message }}
+    </ngb-alert>
+  </div>
   <div *ngIf="!this.errorMessage && !Loading">
     <div class="row d-flex justify-content-center">
       <div class="col-3">
@@ -8,7 +40,7 @@
             <div class="d-flex flex-row align-items-start justify-content-center"><span class="h1 m-0 p-0">{{this.stock_details.ticker}}</span><i *ngIf="this.watchlistEnabled" class="bi bi-star-fill fs-4 mt-2 ms-2" style="color: #ffdd04" (click)="this.watchList()"></i><i *ngIf="!this.watchlistEnabled" class="bi bi-star fs-4 mt-2 ms-2" (click)="this.watchList()"></i></div>
             <div class="d-flex flex-row align-items-start justify-content-center"><span class="h4 mt-0 pt-0 text-secondary">{{this.stock_details.name}}</span></div>
             <div class="d-flex flex-row align-items-start justify-content-center "><span class="mt-0 pt-0 fw-light" style="font-size: small;">{{this.stock_details.exchange}}</span></div>
-            <div class="d-flex flex-row align-items-start justify-content-center "><button class="btn btn-success mt-1 pt-1 pb-1" style="font-size: small;">Buy</button> <button class="btn btn-danger mt-1 ms-2 pt-1 pb-1" style="font-size: small;">Sell</button></div>
+            <div class="d-flex flex-row align-items-start justify-content-center "><button class="btn btn-success mt-1 pt-1 pb-1" style="font-size: small;" (click)="Buy()">Buy</button> <button *ngIf="portStock" class="btn btn-danger mt-1 ms-2 pt-1 pb-1" style="font-size: small;" (click)="Sell()">Sell</button></div>
           </div>
         </div>
       </div>
@@ -45,11 +77,10 @@
         </mat-tab>
         <mat-tab label="Top News" ><app-news [news]="news"></app-news></mat-tab>
         <mat-tab label="Charts"><app-charts [chartData]="chartData"></app-charts></mat-tab>
-        <mat-tab label="Insights"><app-insights [Insiders]="insiders" [Recommendations]="trend" [Earnings]="earnings"></app-insights></mat-tab>
+        <mat-tab label="Insights"><app-insights [Insiders]="insiders" [Recommendations]="trend" [Earnings]="earnings" [stock_details]="stock_details"></app-insights></mat-tab>
       </mat-tab-group>
     </div>
   </div>
-
   <div *ngIf="this.errorMessage" class="mt-5">
     <ngb-alert class="text-center" [type]="this.errorMessage.type" [dismissible]="false" >{{ this.errorMessage.message }}</ngb-alert>
   </div>

@@ -20,7 +20,7 @@ export class WatchlistComponent {
   }
 
   ngOnInit() {
-    this.watchservice.upDateWatchList();
+    this.watchservice.FetchWatchList();
   }
 
   routeToSearch(s: any){

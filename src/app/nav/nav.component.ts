@@ -8,7 +8,7 @@ import {NodeApiService} from "../node-api.service";
   selector: 'app-nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.css'],
-  providers: [WatchlistService, PortfolioService, NodeApiService]
+  providers: []
 })
 export class NavComponent {
 
