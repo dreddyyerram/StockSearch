@@ -1,5 +1,13 @@
 import {Injectable} from '@angular/core';
 import {samples, StockDetails} from './objects';
+import {DetachedRouteHandle} from "@angular/router";
+
+export interface RootHandler {
+  handle: DetachedRouteHandle;
+  storeTime: number;
+  path: string;
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +18,8 @@ export class NodeApiService {
   test: boolean = false;
   mongoTest: boolean = false;
   localDB: any;
+  public ticker: string = '';
+  public handlers: { [key: string]: RootHandler } = {};
 
   constructor() {
 

@@ -11,12 +11,15 @@ import {NodeApiService} from "../node-api.service";
   providers: []
 })
 export class NavComponent {
-
+  ticker: string = '';
+  service: any = '';
   constructor(private route: ActivatedRoute,
               private router: Router,
               private watchlistService: WatchlistService,
               private portfolioService: PortfolioService,
               private nodeApiService: NodeApiService) {
+    this.service = nodeApiService;
+
   }
 
 }

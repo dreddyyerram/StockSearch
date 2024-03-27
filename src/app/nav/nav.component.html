@@ -15,7 +15,7 @@
   <div class="collapse navbar-collapse" id="navbar">
     <ul class="nav navbar-nav ms-auto me-5 " style="font-size: small">
       <li>
-        <a class="nav-link ps-3 pe-3" [routerLink]="['/', 'search']" [routerLinkActiveOptions]="{exact: false}"
+        <a class="nav-link ps-3 pe-3" [routerLink]="['/', 'search', this.service.ticker? this.service.ticker : 'home']" [routerLinkActiveOptions]="{exact: false}"
            routerLinkActive="active">Search</a>
       </li>
       <li>

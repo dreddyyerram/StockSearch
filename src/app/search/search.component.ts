@@ -14,8 +14,8 @@ import {AutoSearchResult, ALERTS} from "../objects";
 export class SearchComponent {
   myControl = new FormControl('');
   options: any[] = [];
-  ticker: string = '';
-  tickerInput: string | null = '';
+  ticker: string= '';
+  tickerInput: string= '';
   loading: boolean = false;
   errorMessage: any;
   faX = faX;
@@ -28,18 +28,21 @@ export class SearchComponent {
       this.ticker = params['ticker'] || '';
       if (this.ticker !== this.tickerInput){
         console.log("changing")
-        this.tickerInput = this.ticker;}
+        this.tickerInput = this.ticker;
+        this.backend.ticker = this.tickerInput;
+      }
     });
   }
 
   ngOnInit() {
     this.myControl.valueChanges.subscribe(value => {
-      this.tickerInput = value;
       if (value === '' || value === null || value === undefined){
         this.options = [];
         this.loading = false;
       }
       else{
+        this.tickerInput = value;
+        this.backend.ticker = this.tickerInput;
         this.loading = true;
         this.options = [];
         this.backend.getSearchList(value).then((data: AutoSearchResult) => {
