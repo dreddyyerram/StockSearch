@@ -39,6 +39,7 @@ export class SummaryComponent implements OnInit, OnChanges{
   }
 
   ngOnChanges(): void {
+    console.log("Chart", this.chart);
     if (this.chart && this.chart.results){
       this.createChart(this.chart);
     }

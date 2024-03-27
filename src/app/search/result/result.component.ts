@@ -1,22 +1,24 @@
-import {Component, Input, OnChanges, OnDestroy, TemplateRef} from '@angular/core';
-import {NgbAlertModule, NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
+import {Component, Input, OnChanges, OnDestroy} from '@angular/core';
+import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 import {
+  ALERTS,
+  CAlert,
   ChartResponse,
-  Recommendation,
-  StockDetails,
-  StockQuote,
-  Peers,
-  NewsResponse,
-  InsiderResponse,
   EarningsResponse,
-  ALERTS, stock, PurchaseStock, CAlert
+  InsiderResponse,
+  NewsResponse,
+  Peers,
+  PurchaseStock,
+  Recommendation,
+  stock,
+  StockDetails,
+  StockQuote
 } from '../../objects'
-import { NodeApiService } from '../../node-api.service';
-import {WatchlistService}   from "../../watchlist.service";
+import {NodeApiService} from '../../node-api.service';
+import {WatchlistService} from "../../watchlist.service";
 import {PurchaseComponent} from "../../purchase/purchase.component";
 import {PortfolioService} from "../../portfolio.service";
-import {timer} from "rxjs";
-import {interval} from "rxjs";
+import {interval, timer} from "rxjs";
 
 
 @Component({
@@ -32,6 +34,7 @@ export class ResultComponent implements OnChanges, OnDestroy{
   trend : Recommendation | any;
   peers: Array<string> | any;
   chartData: ChartResponse | any;
+  lastUpdated: Date | any;
   news: NewsResponse | any;
   hourChart: ChartResponse | any;
   insiders: InsiderResponse | any;
@@ -79,10 +82,10 @@ export class ResultComponent implements OnChanges, OnDestroy{
   }
 
   async upDate() {
+    this.backend.clearState();
     this.clear();
     this.errorMessage = null;
     if (this.ticker === ""){
-      console.log("Empty");
       this.errorMessage = ALERTS.InvalidTicker;
       return;
     }
@@ -105,15 +108,11 @@ export class ResultComponent implements OnChanges, OnDestroy{
       const toDate: Date = new Date(this.stock_quote.t * 1000);
       const fromDate: Date = new Date(toDate);
       fromDate.setDate(toDate.getDate() - 1);
+      this.lastUpdated = toDate
       this.backend.getHourlyChartData(this.ticker, fromDate, toDate).then((data: ChartResponse) => {
         this.hourChart = data;
       });
-      this.QuoteSubscription = interval(15000).subscribe(() => {
-        this.backend.getStockQuote(this.ticker).then((data: StockQuote) => {
-          this.stock_quote = data;
-          this.marketOpen = this.stock_quote.t * 1000 > (Date.now() - 5 * 60 * 1000);
-        });
-      });
+      this.setSubscription();
     });
     let recommendPromise = this.backend.getRecommendations(this.ticker).then((data: Recommendation) => {
       this.trend = data;
@@ -122,7 +121,7 @@ export class ResultComponent implements OnChanges, OnDestroy{
       this.chartData = data;
     });
     let peerPromise = this.backend.getPeers(this.ticker).then((data: Peers) => {
-      this.peers = data;
+      this.peers = data.filter((peer: string) => !peer.includes('.'));
     });
     let newsPromise = this.backend.getNews(this.ticker).then((data: NewsResponse) => {
       this.news = data;
@@ -137,7 +136,48 @@ export class ResultComponent implements OnChanges, OnDestroy{
       newsPromise, insiderPromise, earningsPromise, watchListPromise, portServicePromise];
     await Promise.all(allPromises);
     this.Loading = false;
+  }
 
+  saveSearchState(){
+    this.backend.setState({
+        ticker: this.ticker,
+        stock_details: this.stock_details,
+        stock_quote: this.stock_quote,
+        marketOpen: this.marketOpen,
+        trend: this.trend,
+        peers: this.peers,
+        chartData: this.chartData,
+        news: this.news,
+        hourChart: this.hourChart,
+        insiders: this.insiders,
+        recommendations: this.recommendations,
+        earnings: this.earnings,
+        error: this.error,
+        Loading: this.Loading,
+        errorMessage: this.errorMessage,
+        nextId: this.nextId,
+        lastUpdated: this.lastUpdated
+      });
+    }
+
+  restoreSearchState(state: any){
+    this.ticker = state.ticker;
+    this.stock_details = state.stock_details;
+    this.stock_quote = state.stock_quote;
+    this.marketOpen = state.marketOpen;
+    this.trend = state.trend;
+    this.peers = state.peers;
+    this.chartData = state.chartData;
+    this.news = state.news;
+    this.hourChart = state.hourChart;
+    this.insiders = state.insiders;
+    this.recommendations = state.recommendations;
+    this.earnings = state.earnings;
+    this.error = state.error;
+    this.Loading = state.Loading;
+    this.errorMessage = state.errorMessage;
+    this.nextId = state.nextId;
+    this.lastUpdated = state.lastUpdated;
   }
 
   watchList(){
@@ -153,16 +193,39 @@ export class ResultComponent implements OnChanges, OnDestroy{
     }
   }
 
-  clearError(){
-    this.errorMessage = null;
-  }
-
   ngOnChanges() {
     if(this.ticker === undefined || this.ticker === null){
       return;
     }
-    this.upDate();
+    let state = this.backend.getState();
+    if (state && state['ticker'] === this.ticker){
+      this.restoreSearchState(state);
+      this.reloadStockObjects();
+    }
+    else{
+      this.upDate();
+    }
+  }
 
+  reloadStockObjects(){
+
+    let watchListPromise = this.watchlistService.isWatchListedAsync(this.ticker).then((data: boolean) => {this.watchlistEnabled = data});
+    let portServicePromise = this.portService.getPortfolioAsync(this.ticker).then((data: stock) => {this.portStock = data});
+    this.setSubscription();
+  }
+
+  setSubscription(){
+    if (this.QuoteSubscription){
+      this.QuoteSubscription.unsubscribe();
+    }
+    console.log("Setting Subscription")
+    this.QuoteSubscription = interval(15000).subscribe(() => {
+      this.lastUpdated = Date.now();
+      this.backend.getStockQuote(this.ticker).then((data: StockQuote) => {
+        this.stock_quote = data;
+        this.marketOpen = this.stock_quote.t * 1000 > (this.lastUpdated - 5 * 60 * 1000);
+      });
+    });
   }
 
   Buy(){
@@ -217,7 +280,9 @@ export class ResultComponent implements OnChanges, OnDestroy{
   }
 
   ngOnDestroy() {
+    this.saveSearchState()
     if (this.QuoteSubscription){
+      console.log("Unsubscribing");
       this.QuoteSubscription.unsubscribe();
     }
   }

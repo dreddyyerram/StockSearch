@@ -15,11 +15,12 @@ export interface RootHandler {
 export class NodeApiService {
   domain = 'http://localhost:3000/api';
   mongodb: string = 'http://localhost:3000/api/mongoDB/HW3'
-  test: boolean = false;
-  mongoTest: boolean = false;
+  test: boolean = true;
+  mongoTest: boolean = true;
   localDB: any;
   public ticker: string = '';
   public handlers: { [key: string]: RootHandler } = {};
+  public state: { [key: string]: any } = {};
 
   constructor() {
 
@@ -27,6 +28,17 @@ export class NodeApiService {
       'localDB') || '{"Portfolio": [], "Watchlist": []}');
     console.log("Initial", this.localDB);
 
+  }
+
+  public setState(state: any){
+    this.state = state;
+  }
+  public clearState() {
+    this.state = {};
+  }
+
+  public getState() {
+    return this.state;
   }
 
   public getQueryString(query: any) {
@@ -216,6 +228,11 @@ export class NodeApiService {
       for (const key in query) {
         if (entry[key] !== query[key]) {
           return entry;
+        }
+        else{
+          for(const key in data["$set"]){
+            entry[key] = data[key];
+          }
         }
       }
       return data;

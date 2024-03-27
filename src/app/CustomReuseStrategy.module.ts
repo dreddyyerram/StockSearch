@@ -6,7 +6,6 @@ import {NodeApiService} from "./node-api.service";
 export class CustomRouteReuseStrategy implements RouteReuseStrategy {
 
   constructor(private backend: NodeApiService) {
-    console.log("backend ", backend);
   }
   shouldDetach(route: ActivatedRouteSnapshot): boolean {
     return this.isDetachable(route);

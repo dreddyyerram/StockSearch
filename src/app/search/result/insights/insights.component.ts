@@ -48,7 +48,6 @@ export class InsightsComponent implements OnInit, OnChanges{
       this.setupInsiderData();
     }
     if (this.Recommendations){
-      console.log(this.Recommendations);
       this.createRecomChart(this.Recommendations);
     }
     if (this.Earnings){

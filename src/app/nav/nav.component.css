@@ -13,6 +13,7 @@ nav {
 
 .active {
   border-color: rgb(255, 255, 255) !important;
+  color: rgb(255, 255, 255, 75%) !important;
 }
 
 li > a{

@@ -22,7 +22,7 @@
               <li class="mt-1"><span class="fw-bold">Industry: </span> {{ stock_details.finnhubIndustry }}</li>
               <li class="mt-1"><span class="fw-bold" >Webpage: </span> <a [href]="stock_details.weburl">{{ stock_details.weburl }}</a></li>
               <li class="mt-1"><span class="fw-bold">Company peers:</span></li>
-              <li class="mt-1"><span *ngFor="let peer of peers"><a [routerLink]="['/', 'search', peer]">{{ peer }}, </a></span></li>
+              <li class="mt-1"><span *ngFor="let peer of peers "><a [routerLink]="['/', 'search', peer]">{{ peer }}, </a></span></li>
             </ul>
           </div>
         </div>
@@ -30,7 +30,7 @@
     </div>
     <div class="col-6 m-0 p-2" style="background-color: #f8f8f8">
 <!--      <div class="hourlychart" *ngIf="chartOptions"></div>-->
-      <highcharts-chart *ngIf="this.chartOptions" style="width: 100%; display: block;" [Highcharts]="high_charts" [options]="chartOptions" constructorType='stockChart' ></highcharts-chart>
+      <highcharts-chart style="width: 100%; display: block;" [Highcharts]="high_charts" [options]="chartOptions" constructorType='stockChart' ></highcharts-chart>
     </div>
   </div>
 
