@@ -14,6 +14,29 @@ export class NewsComponent implements OnChanges{
   newsModal: News | any;
   twitter = faXTwitter;
   facebook = faFacebookSquare;
+  // breakpoints = { sm: 576, md: 768, lg: 992, xl: 1200 };
+  //
+  // // Function to determine the height based on window width
+  // calculateImageRatio() {
+  //   const vw = window.innerWidth;
+  //   if (vw < this.breakpoints.sm) {
+  //     return '3/2'; // Example for extra small devices
+  //   } else if (vw >= this.breakpoints.sm && vw < this.breakpoints.md) {
+  //     return '3/2'; // Example for small devices
+  //   } else if (vw >= this.breakpoints.md && vw < this.breakpoints.lg) {
+  //     return '5/5'; // Example for medium devices
+  //   } else {
+  //     return '3/2'; // Example for large devices and above
+  //   }
+  // }
+
+  // You can call this function directly in the template
+  // or use a property to store the calculated height
+  // get ratio(): string {
+  //   return this.calculateImageRatio();
+  // }
+  //
+
   constructor(
     config: NgbModalConfig,
     private modalService: NgbModal,

@@ -1,14 +1,14 @@
 <div class="container-fluid">
-  <div class="row mt-4 mt-md-4 mb-2 mb-md-2">
+  <div class="row mt-5 mt-md-4 mb-3 mb-md-2">
     <div class="col-12 text-center">
-      <h1 class="fw-normal">STOCK SEARCH</h1>
+      <h1 class="fs-1 fs-md-3 ">STOCK SEARCH</h1>
     </div>
   </div>
   <div class="row align-items-center justify-content-center">
-    <div class="col-md-4 col-10">
+    <div class="col-md-4 col-12">
       <form class="col-10 m-2 border-search rounded-5 ps-2 pe-2 m-auto">
         <div class="input-group">
-          <input type="text" class="form-control border-0 pt-1 pb-1" [ngModel]="tickerInput" name="symbol" placeholder="Enter stock ticker symbol" matInput [formControl]="myControl" [matAutocomplete]="auto" (keyup.enter)="onEnter()" >
+          <input type="text" class="form-control border-0 pt-1 pb-1 fs-6" [ngModel]="tickerInput" name="symbol" placeholder="Enter stock ticker symbol" matInput [formControl]="myControl" [matAutocomplete]="auto" (keyup.enter)="onEnter()" >
           <mat-autocomplete #auto="matAutocomplete">
             <mat-option  *ngIf="loading"  ><mat-spinner diameter="30"></mat-spinner></mat-option>
             <mat-option *ngFor="let option of options" [value]="option.symbol"><a class="text-black text-decoration-none" [routerLink]="['/', 'search', option.symbol]">{{option.symbol}} | {{option.description}}</a></mat-option>

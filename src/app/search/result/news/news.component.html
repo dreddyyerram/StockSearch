@@ -1,5 +1,5 @@
-<div class="row d-flex align-items-stretch">
-  <div *ngFor="let new of news" style="height: 7rem" class="col-md-6 col-sm-12 pt-4">
+<div class="row d-flex align-items-stretch mx-0">
+  <div *ngFor="let new of news" class="col-md-6 mx-auto col-12 pt-4">
     <ng-template #modal let-c="close" let-d="dismiss">
     <div class="modal-header pb-2">
       <div class="row w-100 flex-wrap justify-content-between">
@@ -26,8 +26,8 @@
         <div class="btn-group pt-2" role="group" aria-label="Basic example">
           <a class="twitter-share-button" href="{{'https://twitter.com/intent/tweet?text='+this.newsModal.headline +' '+ this.newsModal.url}}" data-size="large">
             <button type="button" class="btn p-0" ><fa-icon class="h2" [icon]="twitter"></fa-icon></button></a>
-          <a class="fb-share-button" data-href="{{this.newsModal.image}}" data-layout="" data-size="">
-            <a target="_blank" href="{{'https://www.facebook.com/sharer/sharer.php?u='+this.newsModal.image}}" class="fb-xfbml-parse-ignore">
+          <a class="fb-share-button" data-href="{{this.newsModal.url}}" data-layout="" data-size="">
+            <a target="_blank" href="{{'https://www.facebook.com/sharer/sharer.php?u='+this.newsModal.url}}" class="fb-xfbml-parse-ignore">
               <button type="button" class="btn p-0">
                 <fa-icon class="h2" [icon]="facebook" style="color: #0200ff"></fa-icon>
               </button>
@@ -39,11 +39,11 @@
   </ng-template>
     <div class="card w-100 h-100 p-0 clickable" (click)="open(modal, new)">
       <div class="row h-100 m-0">
-        <div class="col-md-3 h-100 p-1">
-          <img class="w-100 h-100 p-2" style="border-radius: 0.8rem" [src]="new.image" alt="Card image">
+        <div class="col-12 col-md-3 p-1">
+          <img class="w-100 p-2 pb-0 pb-md-2 img-fluid"  style="border-radius: 0.8rem; aspect-ratio: 3/2" [src]="new.image" alt="Card image">
         </div>
-        <div class="col d-flex h-100 flex-wrap align-content-center justify-content-around p-3">
-          <p class="text-center" style="font-size: x-small">{{ new.headline }}</p>
+        <div class="col-12 col-md-9 d-flex flex-wrap align-content-center justify-content-around p-2 pt-0 pt-md-2">
+          <p class="text-center text-truncated mb-0" style="font-size: small; overflow: hidden" >{{ new.headline }}</p>
         </div>
       </div>
     </div>

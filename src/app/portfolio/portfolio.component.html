@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div  class="row d-flex mb-0">
-    <div class="col-9 m-auto mt-5 mb-1">
+    <div class="col-12 col-md-9 m-auto mt-5 mt-md-4 mb-2 mb-md-1">
       <div class="w-100 mb-4" *ngFor="let alert of alerts">
         <ngb-alert class="text-center" [type]="alert.type" (closed)="closeAlert(alert.id)">
           {{ alert.message }}
@@ -17,18 +17,18 @@
   <mat-spinner  *ngIf="service.loading" class="m-auto mt-5" diameter="48"></mat-spinner>
 
   <div *ngIf="!service.loading">
-    <div *ngIf="this.service.myPortfolio.stocks.length ==0" class="mt-3 col-9 m-auto">
+    <div *ngIf="this.service.myPortfolio.stocks.length ==0" class="mt-3 col-12 col-md-9 m-auto">
       <ngb-alert class="text-center" [type]="this.EmptyAlert.type" [dismissible]="false" >{{ this.EmptyAlert.message }}</ngb-alert>
     </div>
     <div class="row mt-0 mb-3" *ngFor="let st of service.myPortfolio.stocks">
-      <div class="col-9 m-auto mt-0">
+      <div class="col-12 col-md-9 m-auto mt-0">
         <div class="card">
           <div class="card-header" [routerLink]="['/', 'search', st.ticker]">
             <span class="h4 fw-medium"> {{ st.ticker }} </span> <span class="h5 text-secondary fw-medium">{{st.name}}</span>
           </div>
           <div class="card-body h5 fw-normal">
             <div class="row">
-              <div class="col-6">
+              <div class="col-12 col-md-6">
                 <div class="row">
                   <div class="col-8">Quantity:</div>
                   <div class="col-4">{{ st.quantity.toFixed(2)}}</div>
@@ -42,7 +42,7 @@
                   <div class="col-4">{{st.total_price.toFixed(2)}}</div>
                 </div>
               </div>
-              <div class="col-6">
+              <div class="col-12 col-md-6">
                 <div class="row">
                   <div class="col-8">Change:</div>
                   <div *ngIf="st.change < 0" class="col-4 text-danger"><i class="bi bi-caret-down-fill w-auto" style="font-size: small"></i>{{st.change}}</div>

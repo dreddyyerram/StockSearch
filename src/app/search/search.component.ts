@@ -5,6 +5,7 @@ import {NodeApiService} from "../node-api.service";
 import {faFacebookSquare} from "@fortawesome/free-brands-svg-icons";
 import {AutoSearchResult, ALERTS} from "../objects";
 import {faXmark, faSearch} from "@fortawesome/free-solid-svg-icons";
+import {StateService} from "../state.service";
 
 
 @Component({
@@ -23,7 +24,8 @@ export class SearchComponent {
   faSearch = faSearch;
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private backend: NodeApiService) {
+              private backend: NodeApiService,
+              private state: StateService) {
     this.options = [];
     this.route.params.subscribe(params => {
       this.ticker = params['ticker'].toUpperCase() || '';
@@ -71,7 +73,7 @@ export class SearchComponent {
     this.options = [];
     this.loading = false;
     this.errorMessage = null;
-    this.backend.clearState();
+    this.state.clearState();
     this.backend.ticker = '';
     this.router.navigate(['/search']);
   }

@@ -133,26 +133,9 @@ export class InsightsComponent implements OnInit, OnChanges{
         backgroundColor: '#f8f8f8',
         style:{
           fontSize: "small"
-        },
-        events: {
-          load: function (this: any) {
-            // Draw a line after the chart has been rendered
-            let labelYPosition = this.xAxis[0].labelGroup.element.getBBox().y;
-            const legendYPosition = this.legend.group.alignAttr.translateY;
-            const x1 = this.plotLeft;
-            const x2 = this.plotLeft + this.plotWidth;
-            const y = labelYPosition + (legendYPosition - labelYPosition);
-            // Render the line
-            this.renderer.path(['M', x1, y, 'L', x2, y])
-              .attr({
-                'stroke-width': 1,
-                stroke: 'black'
-              })
-              .add();
-          }
         }
       },
-      xAxis: {
+      xAxis: [{
         categories: x_labels,
         labels: {
           formatter: function(this: any) {
@@ -160,7 +143,7 @@ export class InsightsComponent implements OnInit, OnChanges{
           },
           tickLength: 10,
         }
-      },
+      }, {}],
       yAxis: {
         title: {
           text: 'Quarterly EPS'

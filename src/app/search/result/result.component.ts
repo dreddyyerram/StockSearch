@@ -19,6 +19,7 @@ import {WatchlistService} from "../../watchlist.service";
 import {PurchaseComponent} from "../../purchase/purchase.component";
 import {PortfolioService} from "../../portfolio.service";
 import {interval, timer} from "rxjs";
+import {StateService} from "../../state.service";
 
 
 @Component({
@@ -76,13 +77,12 @@ export class ResultComponent implements OnChanges, OnDestroy{
               private watchlistService: WatchlistService,
               private portService: PortfolioService,
               config: NgbModalConfig,
-              private modalService: NgbModal) {
-    this.clear();
+              private modalService: NgbModal, private state_service: StateService) {
 
   }
 
   async upDate() {
-    this.backend.clearState();
+    this.state_service.clearState();
     this.clear();
     this.errorMessage = null;
     if (this.ticker === ""){
@@ -139,7 +139,7 @@ export class ResultComponent implements OnChanges, OnDestroy{
   }
 
   saveSearchState(){
-    this.backend.setState({
+    this.state_service.setState({
         ticker: this.ticker,
         stock_details: this.stock_details,
         stock_quote: this.stock_quote,
@@ -194,16 +194,17 @@ export class ResultComponent implements OnChanges, OnDestroy{
   }
 
   ngOnChanges() {
-    if(this.ticker === undefined || this.ticker === null){
+    if(this.ticker === undefined || this.ticker === null || this.ticker === ""){
       return;
     }
-    let state = this.backend.getState();
+    let state = this.state_service.getState();
     if (state && state['ticker'] === this.ticker){
       this.restoreSearchState(state);
       this.reloadStockObjects();
     }
     else{
       this.upDate();
+      this.saveSearchState();
     }
   }
 
