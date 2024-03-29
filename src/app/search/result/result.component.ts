@@ -198,7 +198,7 @@ export class ResultComponent implements OnChanges, OnDestroy{
       return;
     }
     let state = this.state_service.getState();
-    if (state && state['ticker'] === this.ticker){
+    if (state && state['ticker'] === this.ticker && !state['Loading']){
       this.restoreSearchState(state);
       this.reloadStockObjects();
     }
