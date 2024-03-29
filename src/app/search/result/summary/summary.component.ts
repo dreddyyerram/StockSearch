@@ -94,7 +94,7 @@ export class SummaryComponent implements OnInit, OnChanges{
         type: 'line',
         name: this.stock_details.ticker,
         data: data1,
-        color: this.marketOpen ? 'green' : 'red',
+        color: this.stock_quote.d >=0? 'green' : 'red',
         tooltip: {
           valueDecimals: 2
         }

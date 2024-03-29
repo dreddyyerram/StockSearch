@@ -243,7 +243,9 @@ export class ResultComponent implements OnChanges, OnDestroy{
     return modalRef.result.then((result) => {
       if (result) {
         this.addAlert(result.type, result.message);
+        this.portService.getPortfolioAsync(this.ticker).then((data: stock) => {this.portStock = data});
       }
+
     });
 
   }
@@ -263,6 +265,7 @@ export class ResultComponent implements OnChanges, OnDestroy{
     return modalRef.result.then((result) => {
       if (result) {
         this.addAlert(result.type, result.message);
+        this.portService.getPortfolioAsync(this.ticker).then((data: stock) => {this.portStock = data});
       }
     });
   }

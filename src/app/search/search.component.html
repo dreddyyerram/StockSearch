@@ -9,7 +9,7 @@
       <form class="col-10 m-2 border-search rounded-5 ps-2 pe-2 m-auto">
         <div class="input-group">
           <input type="text" class="form-control border-0 pt-1 pb-1 fs-6" [ngModel]="tickerInput" name="symbol" placeholder="Enter stock ticker symbol" matInput [formControl]="myControl" [matAutocomplete]="auto" (keyup.enter)="onEnter()" >
-          <mat-autocomplete #auto="matAutocomplete">
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onEnter()">
             <mat-option  *ngIf="loading"  ><mat-spinner diameter="30"></mat-spinner></mat-option>
             <mat-option *ngFor="let option of options" [value]="option.symbol"><a class="text-black text-decoration-none"  [routerLink]="['/', 'search', option.symbol]">{{option.symbol}} | {{option.description}}</a></mat-option>
           </mat-autocomplete>

@@ -14,8 +14,8 @@ export interface RootHandler {
   providedIn: 'root'
 })
 export class NodeApiService {
-  domain = 'http://localhost:3000/api';
-  mongodb: string = 'http://localhost:3000/api/mongoDB/HW3'
+  domain = '/api';
+  mongodb: string = '/api/mongoDB/HW3'
   test: boolean = false;
   mongoTest: boolean = false;
   localDB: any;
