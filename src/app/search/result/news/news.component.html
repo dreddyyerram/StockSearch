@@ -24,9 +24,9 @@
       <div class="container border-dark border-2">
         Share<br>
         <div class="btn-group pt-2" role="group" aria-label="Basic example">
-          <a class="twitter-share-button" href="{{'https://twitter.com/intent/tweet?text='+this.newsModal.headline +' '+ this.newsModal.url}}" data-size="large">
+          <a class="twitter-share-button" target="_blank" href="{{'https://twitter.com/intent/tweet?text='+encodeURIComponent(this.newsModal.headline) +' '+ encodeURIComponent(this.newsModal.url)}}" data-size="large">
             <button type="button" class="btn p-0" ><fa-icon class="h2" [icon]="twitter"></fa-icon></button></a>
-          <a class="fb-share-button" data-href="{{this.newsModal.url}}" data-layout="" data-size="">
+          <a class="fb-share-button" target="_blank" data-href="{{this.newsModal.url}}" data-layout="" data-size="">
             <a target="_blank" href="{{'https://www.facebook.com/sharer/sharer.php?u='+this.newsModal.url}}" class="fb-xfbml-parse-ignore">
               <button type="button" class="btn p-0">
                 <fa-icon class="h2" [icon]="facebook" style="color: #0200ff"></fa-icon>

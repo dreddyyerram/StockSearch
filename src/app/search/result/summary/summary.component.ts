@@ -48,6 +48,9 @@ export class SummaryComponent implements OnInit, OnChanges{
   createChart(chart: ChartResponse){
     let data1: number[][] = this.chart.results.map((d: { t: any; c: any; }) => [d.t, d.c]);
     this.chartOptions = {
+      time: {
+        timezone: 'America/Los_Angeles'
+      },
       chart: {
         type: 'line',
         backgroundColor: 'transparent',
@@ -85,16 +88,7 @@ export class SummaryComponent implements OnInit, OnChanges{
         opposite: true
       },
       xAxis: {
-        // tickPositioner(this:any) {
-        //   this.tickPositions.shift();
-        //   this.tickPositions.pop();
-        //   return [data1[0][0], ...this.tickPositions, data1[data1.length - 1][0]]
-        // },
         type: 'datetime',
-        // dateTimeLabelFormats : {
-        //   day: '%b. %e',
-        //   hour: '%H:%M',
-        // },
       },
       series: [{
         type: 'line',

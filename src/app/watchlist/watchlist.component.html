@@ -23,10 +23,10 @@
           </div>
           <div class="col-6 p-0 ps-2 " [ngClass]="{'text-danger' : this.stock.quote.d < 0, 'text-success': this.stock.quote.d > 0, 'text-black': this.stock.quote.d ==0}">
             <div class="row h4 m-0 mb-2 fw-medium">
-              {{ stock.quote.c }}
+              {{ stock.quote.c.toFixed(2)}}
             </div>
             <div class="row h6 m-0 mb-3">
-              <i class="bi w-auto p-1" [ngClass]="{'bi-caret-down-fill' : this.stock.quote.d < 0, 'bi-caret-up-fill': this.stock.quote.d > 0}" style="font-size: small"></i>{{stock.quote.d}} ({{stock.quote.dp}}%)
+              <i class="bi w-auto p-1" [ngClass]="{'bi-caret-down-fill' : this.stock.quote.d < 0, 'bi-caret-up-fill': this.stock.quote.d > 0}" style="font-size: small"></i>{{stock.quote.d?.toFixed(2)}} ({{stock.quote.dp.toFixed(2)}}%)
             </div>
           </div>
         </div>

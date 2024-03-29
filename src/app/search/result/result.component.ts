@@ -82,8 +82,6 @@ export class ResultComponent implements OnChanges, OnDestroy{
   }
 
   async upDate() {
-    this.state_service.clearState();
-    this.clear();
     this.errorMessage = null;
     if (this.ticker === ""){
       this.errorMessage = ALERTS.InvalidTicker;
@@ -108,7 +106,7 @@ export class ResultComponent implements OnChanges, OnDestroy{
       const toDate: Date = new Date(this.stock_quote.t * 1000);
       const fromDate: Date = new Date(toDate);
       fromDate.setDate(toDate.getDate() - 1);
-      this.lastUpdated = toDate
+      this.lastUpdated = new Date()
       this.backend.getHourlyChartData(this.ticker, fromDate, toDate).then((data: ChartResponse) => {
         this.hourChart = data;
       });
@@ -135,6 +133,7 @@ export class ResultComponent implements OnChanges, OnDestroy{
     let allPromises = [stockPromise, quotePromise, recommendPromise, chartPromise, peerPromise,
       newsPromise, insiderPromise, earningsPromise, watchListPromise, portServicePromise];
     await Promise.all(allPromises);
+    this.saveSearchState()
     this.Loading = false;
   }
 
@@ -147,6 +146,7 @@ export class ResultComponent implements OnChanges, OnDestroy{
         trend: this.trend,
         peers: this.peers,
         chartData: this.chartData,
+        lastUpdated: this.lastUpdated,
         news: this.news,
         hourChart: this.hourChart,
         insiders: this.insiders,
@@ -155,8 +155,7 @@ export class ResultComponent implements OnChanges, OnDestroy{
         error: this.error,
         Loading: this.Loading,
         errorMessage: this.errorMessage,
-        nextId: this.nextId,
-        lastUpdated: this.lastUpdated
+        nextId: this.nextId
       });
     }
 
@@ -197,9 +196,9 @@ export class ResultComponent implements OnChanges, OnDestroy{
     if(this.ticker === undefined || this.ticker === null || this.ticker === ""){
       return;
     }
-    let state = this.state_service.getState();
-    if (state && state['ticker'] === this.ticker && !state['Loading']){
-      this.restoreSearchState(state);
+    let last_state = this.state_service.getState();
+    if (last_state && last_state['ticker'] === this.ticker && !last_state['Loading']){
+      this.restoreSearchState(last_state);
       this.reloadStockObjects();
     }
     else{

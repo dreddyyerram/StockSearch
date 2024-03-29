@@ -28,6 +28,7 @@ import { PurchaseComponent } from './purchase/purchase.component';
 import { RouteReuseStrategy } from '@angular/router';
 import {CustomRouteReuseStrategy} from "./CustomReuseStrategy.module";
 import {NodeApiService} from "./node-api.service";
+import {StateService} from "./state.service";
 
 
 @NgModule({
@@ -61,7 +62,7 @@ import {NodeApiService} from "./node-api.service";
     ReactiveFormsModule,
     MatProgressSpinnerModule
   ],
-  providers: [NodeApiService, { provide: RouteReuseStrategy, useClass: CustomRouteReuseStrategy }],
+  providers: [NodeApiService, { provide: RouteReuseStrategy, useClass: CustomRouteReuseStrategy }, StateService],
   bootstrap: [AppComponent]
 
 })

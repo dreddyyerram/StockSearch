@@ -61,10 +61,11 @@ export class NewsComponent implements OnChanges{
     return true;
   }
   ngOnChanges() {
-    console.log(this.news);
     this.news = this.news.filter((x: any) => this.vaidNews(x));
     this.news = this.news.slice(0, 20);
   }
 
 
+  protected readonly encodeURI = encodeURI;
+  protected readonly encodeURIComponent = encodeURIComponent;
 }

@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {WatchlistService} from 'src/app/watchlist.service';
 import {PortfolioService} from "src/app/portfolio.service";
 import {NodeApiService} from "../node-api.service";
+import {StateService} from "../state.service";
 
 @Component({
   selector: 'app-nav',
@@ -17,8 +18,9 @@ export class NavComponent {
               private router: Router,
               private watchlistService: WatchlistService,
               private portfolioService: PortfolioService,
-              private nodeApiService: NodeApiService) {
-    this.service = nodeApiService;
+              private nodeApiService: NodeApiService,
+              private state: StateService) {
+    this.service = state;
 
   }
 

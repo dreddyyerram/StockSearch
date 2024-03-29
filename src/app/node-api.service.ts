@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {samples, StockDetails} from './objects';
 import {DetachedRouteHandle} from "@angular/router";
+import {tick} from "@angular/core/testing";
 
 export interface RootHandler {
   handle: DetachedRouteHandle;
@@ -61,6 +62,11 @@ export class NodeApiService {
   }
 
   public getSearchList(ticker: string) {
+    if(ticker === ''){
+      return new Promise((resolve, reject) => {
+        resolve([]);
+      });
+    }
     return this.genericNodeApi(ticker, 'stock/search', 'search');
   }
 
@@ -116,7 +122,7 @@ export class NodeApiService {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
-    }).then(response => console.log("Added Entry to ", doc, data, response.json()));
+    });
   }
 
   public MongoDBGetEntry(doc: string, query: any) {
@@ -148,7 +154,7 @@ export class NodeApiService {
     return fetch(`${this.mongodb}/${doc}?${queries}`, {
       mode: 'cors',
       method: 'DELETE'
-    }).then(response => console.log("Deleted Entry from ", doc, query, response.json()));
+    });
   }
 
   public MongoDBUpdate(doc: string, query: any, data: any) {
@@ -164,7 +170,7 @@ export class NodeApiService {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({'$set': data})
-    }).then(response => console.log("Updated Entry in ", doc, response.json()));
+    });
   }
 
 
@@ -172,7 +178,6 @@ export class NodeApiService {
     this.localDB[doc].push(data);
     localStorage.setItem('localDB', JSON.stringify(this.localDB));
     return new Promise((resolve, reject) => {
-      console.log("Added Entry to ", doc, data, this.localDB[doc])
       resolve(Object.assign([], this.localDB[doc]));
     });
   }

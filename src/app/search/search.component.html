@@ -11,7 +11,7 @@
           <input type="text" class="form-control border-0 pt-1 pb-1 fs-6" [ngModel]="tickerInput" name="symbol" placeholder="Enter stock ticker symbol" matInput [formControl]="myControl" [matAutocomplete]="auto" (keyup.enter)="onEnter()" >
           <mat-autocomplete #auto="matAutocomplete">
             <mat-option  *ngIf="loading"  ><mat-spinner diameter="30"></mat-spinner></mat-option>
-            <mat-option *ngFor="let option of options" [value]="option.symbol"><a class="text-black text-decoration-none" [routerLink]="['/', 'search', option.symbol]">{{option.symbol}} | {{option.description}}</a></mat-option>
+            <mat-option *ngFor="let option of options" [value]="option.symbol"><a class="text-black text-decoration-none"  [routerLink]="['/', 'search', option.symbol]">{{option.symbol}} | {{option.description}}</a></mat-option>
           </mat-autocomplete>
           <div class="input-group-append">
             <button type="button" class="btn border-0 pe-1 pt-1 pb-1" (click)="onEnter()" >

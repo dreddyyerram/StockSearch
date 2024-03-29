@@ -44,7 +44,6 @@ export class WatchlistService {
   isWatchListedAsync(ticker: string): Promise<boolean>{
     if (this.watchList.length == 0){
       return this.FetchWatchList().then(() => {
-        console.log("watchlist",this.watchList);
         return this.watchList.some(t => t.ticker === ticker);});
     }
     else{
@@ -56,7 +55,6 @@ export class WatchlistService {
   removeStock(ticker: string){
     this.watchList.splice(this.watchList.findIndex(stock => stock.ticker === ticker), 1);
     this.backend.MongoDBDeleteEntry(this.doc, {ticker: ticker})
-    console.log(`removed Stock ${ticker}`, this.watchList);
     // this.watchList = this.watchList.filter(t => t.ticker !== ticker);
   }
 
