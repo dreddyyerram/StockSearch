@@ -110,7 +110,7 @@ export class ResultComponent implements OnChanges, OnDestroy{
       this.backend.getHourlyChartData(this.ticker, fromDate, toDate).then((data: ChartResponse) => {
         this.hourChart = data;
       });
-      this.setSubscription();
+      if(this.marketOpen){this.setSubscription();}
     });
     let recommendPromise = this.backend.getRecommendations(this.ticker).then((data: Recommendation) => {
       this.trend = data;
@@ -211,7 +211,8 @@ export class ResultComponent implements OnChanges, OnDestroy{
 
     let watchListPromise = this.watchlistService.isWatchListedAsync(this.ticker).then((data: boolean) => {this.watchlistEnabled = data});
     let portServicePromise = this.portService.getPortfolioAsync(this.ticker).then((data: stock) => {this.portStock = data});
-    this.setSubscription();
+    if(this.marketOpen){this.setSubscription();}
+
   }
 
   setSubscription(){

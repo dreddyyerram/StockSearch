@@ -26,7 +26,6 @@ import { WatchlistComponent } from './watchlist/watchlist.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 import { PurchaseComponent } from './purchase/purchase.component';
 import { RouteReuseStrategy } from '@angular/router';
-import {CustomRouteReuseStrategy} from "./CustomReuseStrategy.module";
 import {NodeApiService} from "./node-api.service";
 import {StateService} from "./state.service";
 
@@ -62,7 +61,7 @@ import {StateService} from "./state.service";
     ReactiveFormsModule,
     MatProgressSpinnerModule
   ],
-  providers: [NodeApiService, { provide: RouteReuseStrategy, useClass: CustomRouteReuseStrategy }, StateService],
+  providers: [NodeApiService, StateService],
   bootstrap: [AppComponent]
 
 })
