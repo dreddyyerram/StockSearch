@@ -23,7 +23,6 @@ export class NodeApiService {
   public handlers: { [key: string]: RootHandler } = {};
 
   constructor() {
-
     this.localDB = JSON.parse(localStorage.getItem(
       'localDB') || '{"Portfolio": [], "Watchlist": []}');
     console.log("Initial", this.localDB);

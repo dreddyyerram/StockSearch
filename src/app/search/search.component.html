@@ -31,7 +31,7 @@
     <div class="col-md-10 col-sm-12 col-lg-9 p-0 m-0">
       <app-result *ngIf="this.ticker" [ticker]="ticker"></app-result>
       <div *ngIf="this.errorMessage" class="mt-5">
-        <ngb-alert class="text-center" [type]="this.errorMessage.type" [dismissible]="false">{{this.errorMessage.message}}</ngb-alert>
+        <ngb-alert class="text-center" [type]="this.errorMessage.type" [dismissible]="true">{{this.errorMessage.message}}</ngb-alert>
 
       </div>
     </div>
