@@ -45,13 +45,13 @@
               <div class="col-12 col-md-6">
                 <div class="row">
                   <div class="col-8">Change:</div>
-                  <div *ngIf="st.change < 0" class="col-4 text-danger"><i class="bi bi-caret-down-fill w-auto" style="font-size: small"></i>{{st.change}}</div>
-                  <div *ngIf="st.change > 0" class="col-4 text-success"><i class="bi bi-caret-up-fill w-auto" style="font-size: small"></i>{{st.change}}</div>
+                  <div *ngIf="st.change < 0" class="col-4 text-danger"><i class="bi bi-caret-down-fill w-auto" style="font-size: small"></i>{{st.change.toFixed(2)}}</div>
+                  <div *ngIf="st.change > 0" class="col-4 text-success"><i class="bi bi-caret-up-fill w-auto" style="font-size: small"></i>{{st.change.toFixed(2)}}</div>
                   <div *ngIf="st.change == 0" class="col-4 text-black">0.00</div>
                 </div>
                 <div class="row">
                   <div class="col-8">Current Price:</div>
-                  <div class="col-4" [ngClass]="{'text-danger' : this.st.change < 0, 'text-success': this.st.change > 0, 'text-black': this.st.change == 0}">{{st.current_price}}</div>
+                  <div class="col-4" [ngClass]="{'text-danger' : this.st.change < 0, 'text-success': this.st.change > 0, 'text-black': this.st.change == 0}">{{st.current_price.toFixed(2)}}</div>
                 </div>
                 <div class="row">
                   <div class="col-8">Market Value:</div>

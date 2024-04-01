@@ -92,7 +92,7 @@ export class PortfolioService {
 
   setMetaData(stock_obj: stock|any){
     stock_obj.avg_price = stock_obj.total_price / stock_obj.quantity;
-    stock_obj.change = (stock_obj.current_price - stock_obj.avg_price).toFixed(2);
+    stock_obj.change = (stock_obj.current_price - stock_obj.avg_price);
     stock_obj.mrkt_value = stock_obj.current_price * stock_obj.quantity;
     return stock_obj;
   }
