@@ -1,8 +1,8 @@
 <div class="container-fluid">
   <div  class="row d-flex mb-0">
     <div class="col-12 col-md-9 m-auto mt-5 mt-md-4 mb-2 mb-md-1">
-      <div class="w-100 mb-4" *ngFor="let alert of alerts">
-        <ngb-alert class="text-center" [type]="alert.type" (closed)="closeAlert(alert.id)">
+      <div class="w-100 mb-4" *ngFor="let alert of this.service.portfolioAlerts">
+        <ngb-alert class="text-center" [type]="alert.type" (closed)="this.service.closeAlert(alert.id)">
           {{ alert.message }}
         </ngb-alert>
       </div>

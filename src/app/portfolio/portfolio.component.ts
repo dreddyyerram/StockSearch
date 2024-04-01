@@ -16,7 +16,6 @@ import { timer } from 'rxjs';
 export class PortfolioComponent {
   service: PortfolioService;
   EmptyAlert = EmptyPortFolio;
-  alerts: CAlert[] = [];
   private nextId = 0;
   constructor(private backend: NodeApiService, private portService: PortfolioService,
               config: NgbModalConfig,
@@ -25,6 +24,7 @@ export class PortfolioComponent {
   }
   ngOnInit() {
     this.portService.FetchPortfolio();
+    this.portService.portfolioAlerts = [];
   }
 
   Buy(stock: stock){
@@ -39,11 +39,7 @@ export class PortfolioComponent {
     };
     const modalRef = this.modalService.open(PurchaseComponent,{ size: 'md', modalDialogClass: 'news-modal'});
     modalRef.componentInstance.transaction = transaction;
-    return modalRef.result.then((result) => {
-      if (result) {
-        this.addAlert(result.type, result.message);
-      }
-    });
+    return modalRef.result;
   }
 
   Sell(stock: stock){
@@ -58,28 +54,12 @@ export class PortfolioComponent {
     };
     const modalRef = this.modalService.open(PurchaseComponent, { size: 'md', modalDialogClass: 'news-modal'});
     modalRef.componentInstance.transaction = transaction;
-    return modalRef.result.then((result) => {
-      if (result) {
-        this.addAlert(result.type, result.message);
-      }
-    });
+    return modalRef.result;
   }
 
   routeToSearch(s: any){
     this.route.navigate(['/', 'search', s.ticker]);
   }
 
-  addAlert(type: string, message: string) {
-    const alertId = this.nextId++;
-    this.alerts.push({id: alertId, type, message});
 
-    // Remove the alert after 5 seconds without SetTimeout function
-    timer(5000).subscribe(() => this.closeAlert(alertId));
-
-
-  }
-
-  closeAlert(id: number) {
-    this.alerts = this.alerts.filter(alert => alert.id !== id);
-  }
 }
